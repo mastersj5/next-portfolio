@@ -13,6 +13,8 @@ import {
   Loader
 } from '@react-three/drei';
 
+import { Analytics } from "@vercel/analytics/next"
+
 import { Cat } from '../components/Cat';
 import { Desk_set } from '../components/Desk_set';
 import { Laptop_alienpredator } from '../components/Laptop_alienpredator';
@@ -85,6 +87,8 @@ export default function Home() {
       </Canvas>
 
       <Loader />
+
+      <Analytics/>
       
     </div>
   );
