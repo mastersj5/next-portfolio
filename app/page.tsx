@@ -6,6 +6,8 @@ import React, {
 import { Canvas } from '@react-three/fiber';
 import { 
   OrbitControls,
+  FirstPersonControls,
+  PointerLockControls,
   Center,
   Html,
   Loader
@@ -71,10 +73,14 @@ export default function Home() {
 
         </group>
 
-        <OrbitControls 
-          makeDefault
-          target={[0, -1, 0]}
-        />
+          <OrbitControls 
+            makeDefault
+            target={[0, -1, 0]}
+          />
+
+          {/* <FirstPersonControls/> */}
+
+          {/* <PointerLockControls/> */}
 
       </Canvas>
 
