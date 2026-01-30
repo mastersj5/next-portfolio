@@ -14,10 +14,12 @@ export function Room({ isNight }) {
             
 
             {/* 2. CEILING (With a Light) */}
-            <mesh rotation={[Math.PI / 2, 0, 0]} position={[0, 20, 0]} receiveShadow>
-                <planeGeometry args={[50, 50]} />
-                <meshStandardMaterial color="#ddd" side={2} /> {/* Double sided */}
-            </mesh>
+            <RigidBody colliders="trimesh"> 
+                <mesh rotation={[Math.PI / 2, 0, 0]} position={[0, 20, 0]} receiveShadow>
+                    <planeGeometry args={[50, 50]} />
+                    <meshStandardMaterial color="#ddd" side={2} /> {/* Double sided */}
+                </mesh>
+            </RigidBody>
             {/* The "Calm Light Source" from the roof */}
             <pointLight 
                 position={[0, 14, 0]} 
