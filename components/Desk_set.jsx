@@ -7,11 +7,17 @@ Source: https://sketchfab.com/3d-models/desk-set-f26030d09d73422f8ff270425c7c63e
 Title: Desk Set
 */
 
-import React from 'react'
-import { useGLTF } from '@react-three/drei'
+import React, { useRef } from 'react'
+import { useGLTF, useHelper } from '@react-three/drei'
+import { PointLightHelper } from 'three'
 
-export function Desk_set(props) {
+export function Desk_set({ isNight, ...props }) {
   const { nodes, materials } = useGLTF('/desk_set.glb')
+
+  const lightRef = useRef()
+    
+  useHelper(lightRef, PointLightHelper, 50, 'cyan')
+  
   return (
     <group {...props} dispose={null}>
       <group position={[1287.773, 786.161, 833.715]} rotation={[-Math.PI / 2, 0, 0]}>
@@ -28,9 +34,29 @@ export function Desk_set(props) {
       </group>
       <group position={[1891.646, 1021.561, 668.308]} rotation={[Math.PI, -0.313, Math.PI]} scale={0.838}>
         <group position={[69.681, 160.084, 0.169]} rotation={[-Math.PI / 2, 0, -2.407]} scale={0.624}>
-          <mesh geometry={nodes['Lamp-Decorative_03_Lamp_Decorative_0'].geometry} material={materials.Lamp_Decorative} position={[0, 0, 640.944]} />
+          <mesh geometry={nodes['Lamp-Decorative_03_Lamp_Decorative_0'].geometry} material={materials.Lamp_Decorative} position={[0, 0, 640.944]} >
+            {/* Actual lightbulb model on the lamp */}
+              <pointLight 
+                // ref={lightRef} // For accurate light positioning
+                intensity={isNight ? 100 : 0}
+                distance={500}
+                color="orange"
+                decay={2}
+                position={[0, 0, -755]}
+              />
+              {/* <meshStandardMaterial 
+                  color={isNight ? "orange" : "white"} // see through and no emission when isNight is False
+                  emissive="orange" 
+                  emissiveIntensity={isNight ? 2 : 0} 
+
+                  transparent={true}
+                  opacity={isNight ? 1 : 0.3}
+              />   */}
+          </mesh>
         </group>
-        <mesh geometry={nodes['Table-Lamp_Table-Lamp_0'].geometry} material={materials['Table-Lamp']} position={[21.832, 64.609, -612.305]} />
+        <mesh geometry={nodes['Table-Lamp_Table-Lamp_0'].geometry} material={materials['Table-Lamp']} position={[21.832, 64.609, -612.305]} >
+        
+        </mesh>
       </group>
       <mesh geometry={nodes['Photography_Type1_Photography-Type_1_0'].geometry} material={materials['Photography-Type_1']} position={[850.093, 815.947, 645.349]} rotation={[-0.581, 0.114, -1.496]} />
       <mesh geometry={nodes['Book-Type1_Book-Type_1_0'].geometry} material={materials['Book-Type_1']} position={[1910.513, 817.679, 947.855]} rotation={[-Math.PI / 2, 0, 0]} />

@@ -15,6 +15,7 @@ import {
 
 import { Analytics } from "@vercel/analytics/next"
 
+import { Room } from '../components/Room';
 import { Cat } from '../components/Cat';
 import { Desk_set } from '../components/Desk_set';
 import { Laptop_alienpredator } from '../components/Laptop_alienpredator';
@@ -24,12 +25,15 @@ export default function Home() {
   const [hovered, setHovered] = useState(false)
   //const [active, setActive] = useState(false)
 
+  // Mood State
+  const [isNight, setIsNight] = useState(false);
+
   return (
     <div className="h-screen w-full bg-black">
       
       <Canvas camera={{ position: [-8, 6.5, 8], fov: 45 }}>
-        <ambientLight intensity={1.25} />
-        <directionalLight position={[2.5, 3, 5]} intensity={1} />
+        {/* <ambientLight intensity={1.25} />
+        <directionalLight position={[2.5, 3, 5]} intensity={1} /> */}
 
         {/* <mesh>
           <torusGeometry />
@@ -41,8 +45,13 @@ export default function Home() {
           position={[0, -1, 0]} // Move it down slightly to center it
         /> */}
 
+        <Room isNight={isNight} />
+
         <Center position={[0, -2, 0]}>
-            <Desk_set scale={0.01} />
+            <Desk_set 
+              scale={0.01}
+              isNight={isNight} 
+            />
         </Center>
 
         <group position={[0.1, -.3, -2]}>  
@@ -85,6 +94,18 @@ export default function Home() {
           {/* <PointerLockControls/> */}
 
       </Canvas>
+
+      {/* HTML Light Switch */}
+      <div className="absolute top-4 right-4 z-10">
+        <button
+          onClick={() => setIsNight(!isNight)}
+          className={`px-6 py-3 rounded-lg font-bold transition-colors ${
+            isNight ? "bg-slate-900 text-white" : "bg-amber-100 text-black"
+          }`}
+        >
+          {isNight ? "🌙 Night Mode" : "☀️ Day Mode"}
+        </button>
+      </div>
 
       <Loader />
 
