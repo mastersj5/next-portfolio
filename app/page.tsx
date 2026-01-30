@@ -13,10 +13,11 @@ import {
   Html,
   Loader
 } from '@react-three/drei';
-import { Physics, RigidBody } from '@react-three/rapier';
+import { Physics, RigidBody, RapierRigidBody } from '@react-three/rapier';
 
 import { Analytics } from "@vercel/analytics/next"
 
+import { Dice } from '../components/Dice';
 import { Room } from '../components/Room';
 import { Cat } from '../components/Cat';
 import { Desk_set } from '../components/Desk_set';
@@ -30,14 +31,14 @@ export default function Home() {
   // Mood State
   const [isNight, setIsNight] = useState(false);
 
-  const ballRef = useRef<RigidBody>(null);
+  const ballRef = useRef<RapierRigidBody>(null);
 
   return (
     <div className="h-screen w-full bg-black">
       
       <Canvas camera={{ position: [-8, 6.5, 8], fov: 45 }}>
 
-        <Physics debug>
+        <Physics > { /*debug*/ } 
             {/* <ambientLight intensity={1.25} />
             <directionalLight position={[2.5, 3, 5]} intensity={1} /> */}
 
@@ -68,7 +69,7 @@ export default function Home() {
                   onClick={() => {
                     // applyImpulse takes a Vector3 {x, y, z}
                     // We shoot it up (y=10) and slightly random sideways so it doesn't get boring
-                    ballRef.current.applyImpulse({ x: Math.random() + 1, y: 10, z: Math.random() + 1 }, true);
+                    ballRef.current?.applyImpulse({ x: Math.random() + 1, y: 5, z: Math.random() + 1 }, true);
                     // The 'true' argument means 'wake up the body' if it was sleeping
                   }}
                 >
@@ -77,13 +78,17 @@ export default function Home() {
                 </mesh>
             </RigidBody>
 
-            <Center position={[0, -2, 0]}>
+            <Dice/>
+            
+            <RigidBody type="fixed" colliders="trimesh">
+              <Center position={[0, -2, 0]}>
                 <Desk_set 
                   scale={0.01}
                   isNight={isNight} 
                 />
-            </Center>
-
+              </Center>
+            </RigidBody>
+            
             <group position={[0.1, -.3, -2]}>  
 
               <Center top>
