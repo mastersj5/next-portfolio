@@ -14,6 +14,7 @@ import {
   Loader
 } from '@react-three/drei';
 import { Physics, RigidBody, RapierRigidBody } from '@react-three/rapier';
+import { EffectComposer, Bloom, Vignette } from '@react-three/postprocessing';
 
 import { Analytics } from "@vercel/analytics/next"
 
@@ -119,7 +120,26 @@ export default function Home() {
 
           </group>
 
-          </Physics>
+        </Physics>
+
+          {/* 2. The Effects Layer */}
+          {/* disableNormalPass helps performance if we don't need fancy AO */}
+          <EffectComposer enableNormalPass={false}> 
+
+            {/* BLOOM: Makes bright things glow.
+                luminanceThreshold: How bright must a pixel be to glow? (1 = very bright)
+                intensity: How strong is the glow?
+            */}
+            <Bloom luminanceThreshold={1} mipmapBlur intensity={1} />
+
+            {/* VIGNETTE: Darkens corners 
+                eskil: A smoother gradient style
+                offset: How big is the dark area?
+                darkness: How black is it?
+            */}
+            <Vignette eskil={false} offset={0.1} darkness={.8} />
+            
+          </EffectComposer>
     
           <OrbitControls 
             makeDefault
