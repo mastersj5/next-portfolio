@@ -19,7 +19,7 @@ import { EffectComposer, Bloom, Vignette } from '@react-three/postprocessing';
 
 import { Analytics } from "@vercel/analytics/next"
 
-import { Acoustic_guitar } from '../components/Acoustic_guitar';
+import { Acoustic_guitar } from '../components/Acoustic_guitar.jsx';
 import { Dice } from '../components/Dice';
 import { Room } from '../components/Room';
 import { Cat } from '../components/Cat';
@@ -67,7 +67,7 @@ export default function Home() {
                 For now, let's just lean it against the back wall.
             */}
             <RigidBody type="fixed" colliders="trimesh">
-              <Center top position={[-22.5, -8, -11.5]}>
+              <Center top position={[-23, -8.5, -12.5]}>
                 <Acoustic_guitar 
                     scale={10} 
                     //position={[-20, -5.5, -17]} // To the right, on the floor, near back wall
