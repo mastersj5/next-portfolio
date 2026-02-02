@@ -11,13 +11,15 @@ import {
   PointerLockControls,
   Center,
   Html,
-  Loader
+  Loader,
+  Environment
 } from '@react-three/drei';
 import { Physics, RigidBody, RapierRigidBody } from '@react-three/rapier';
 import { EffectComposer, Bloom, Vignette } from '@react-three/postprocessing';
 
 import { Analytics } from "@vercel/analytics/next"
 
+import { Acoustic_guitar } from '../components/Acoustic_guitar';
 import { Dice } from '../components/Dice';
 import { Room } from '../components/Room';
 import { Cat } from '../components/Cat';
@@ -37,7 +39,10 @@ export default function Home() {
   return (
     <div className="h-screen w-full bg-black">
       
-      <Canvas camera={{ position: [-8, 6.5, 8], fov: 45 }}>
+      <Canvas 
+        camera={{ position: [-8, 6.5, 8], fov: 45 }}
+
+      >
 
         <Physics > { /*debug*/ } 
             {/* <ambientLight intensity={1.25} />
@@ -54,6 +59,22 @@ export default function Home() {
             /> */}
 
             <Room isNight={isNight} />
+
+
+            {/* THE GUITAR 
+                We use type="fixed" (or "kinematicPosition") so it doesn't fall over immediately.
+                If you want it to be kickable, use default (dynamic) but you might need a custom collider.
+                For now, let's just lean it against the back wall.
+            */}
+            <RigidBody type="fixed" colliders="trimesh">
+              <Center top position={[-22.5, -8, -11.5]}>
+                <Acoustic_guitar 
+                    scale={10} 
+                    //position={[-20, -5.5, -17]} // To the right, on the floor, near back wall
+                    rotation={[1.4, 0.15, -0.7]} // Leaning slightly
+                />
+              </Center>
+            </RigidBody>
 
             {/* THE BOUNCING BALL */}
             {/* colliders="ball": Tells the physics engine this is a sphere (efficient).
@@ -121,6 +142,15 @@ export default function Home() {
           </group>
 
         </Physics>
+
+          {/* 
+          preset="sunset": Warm, orange/pink light. Great for "golden hour" looks 
+          https://sbcode.net/react-three-fiber/environment/ 
+          A list of presets can be found at 
+          https://github.com/pmndrs/drei/blob/master/src/helpers/environment-assets.ts
+          */}
+          {/* intensity={isNight ? 0.3 : 0.8}  broken */}
+          {/* <Environment preset="warehouse" /> */}
 
           {/* 2. The Effects Layer */}
           {/* disableNormalPass helps performance if we don't need fancy AO */}

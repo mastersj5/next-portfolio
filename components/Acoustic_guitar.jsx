@@ -7,14 +7,73 @@ Source: https://sketchfab.com/3d-models/acoustic-guitar-770b851ca34343a2825180ec
 Title: Acoustic guitar
 */
 
-import React from 'react'
-import { useGLTF } from '@react-three/drei'
+import React, { useRef } from 'react'
+import { useGLTF, PositionalAudio } from '@react-three/drei'
 
-export function Model(props) {
-  const { nodes, materials } = useGLTF('/acoustic_guitar.glb')
+export function Acoustic_guitar(props) {
+  const { nodes, materials, scene } = useGLTF('/acoustic_guitar.glb')
+  
+  const sound = useRef()
+
+  // Ensure textures use sRGB encoding
+  useEffect(() => {
+    Object.values(materials).forEach(mat => {
+      if (mat.map) mat.map.encoding = THREE.sRGBEncoding;
+    });
+  }, [materials]);
+
+  const playSound = () => {
+    // Check if sound exists
+    if (sound.current) {
+        // Optional: Stop if already playing so you can spam-click it
+        if (sound.current.isPlaying) sound.current.stop()
+        
+        // Play the sound!
+        sound.current.play()
+        
+        // OPTIONAL: Add a little "wobble" animation or particle effect here later
+    }
+  }
+  
   return (
+
+    // <group {...props} dispose={null}>
+    //   <PositionalAudio 
+    //     ref={sound} 
+    //     url="/Guitar_Twang.mp3" 
+    //     distance={5} 
+    //     loop={false}
+    //   />
+
+    //   {/* 2. Render the model exactly as it exists in the file */}
+    //   <primitive 
+    //     object={scene} 
+    //     onClick={playSound}
+    //     onPointerOver={() => document.body.style.cursor = 'pointer'}
+    //     onPointerOut={() => document.body.style.cursor = 'auto'}
+    //   />
+    // </group>
+
+
     <group {...props} dispose={null}>
-      <group rotation={[-Math.PI / 2, 0, 0]}>
+
+      {/* 2. The Invisible Speaker 
+          url: Path to your mp3 in the public folder
+          distance: How far (in units) the sound carries. 
+                    10 means it gets quiet 10 units away.
+      */}
+      <PositionalAudio 
+        ref={sound} 
+        url="/Guitar_Twang.mp3" 
+        distance={5} 
+        loop={false}
+      />
+
+      <group rotation={[-Math.PI / 2, 0, 0]}
+        onClick={playSound}
+        onPointerOver={() => document.body.style.cursor = 'pointer'}
+        onPointerOut={() => document.body.style.cursor = 'auto'}
+      >
         <group position={[0, -0.001, 0.005]} rotation={[0.009, 0, -Math.PI / 2]}>
           <mesh geometry={nodes.cassa_0.geometry} material={materials.legno_cassa_sotto} />
           <mesh geometry={nodes.cassa_1.geometry} material={materials.legno_cassa_sopra} />
