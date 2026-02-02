@@ -7,7 +7,7 @@ Source: https://sketchfab.com/3d-models/acoustic-guitar-770b851ca34343a2825180ec
 Title: Acoustic guitar
 */
 
-import React, { useRef } from 'react'
+import React, { useRef, useEffect } from 'react'
 import { useGLTF, PositionalAudio } from '@react-three/drei'
 
 export function Acoustic_guitar(props) {
