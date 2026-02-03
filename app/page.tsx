@@ -11,7 +11,7 @@ import {
   PointerLockControls,
   Center,
   Html,
-  Loader,
+  //Loader,
   Environment
 } from '@react-three/drei';
 import { Physics, RigidBody, RapierRigidBody } from '@react-three/rapier';
@@ -19,12 +19,13 @@ import { EffectComposer, Bloom, Vignette } from '@react-three/postprocessing';
 
 import { Analytics } from "@vercel/analytics/next"
 
-import { Acoustic_guitar } from '../components/Acoustic_guitar.jsx';
-import { Dice } from '../components/Dice';
-import { Room } from '../components/Room';
 import { Cat } from '../components/Cat';
 import { Desk_set } from '../components/Desk_set';
 import { Laptop_alienpredator } from '../components/Laptop_alienpredator';
+import { Room } from '../components/Room';
+import { Dice } from '../components/Dice';
+import { Acoustic_guitar } from '../components/Acoustic_guitar.jsx';
+import { LoadingScreen } from '../components/LoadingScreen';
 
 export default function Home() {
 
@@ -34,11 +35,19 @@ export default function Home() {
   // Mood State
   const [isNight, setIsNight] = useState(false);
 
+  // State for the Start Screen
+  const [start, setStart] = useState(false);
+
   const ballRef = useRef<RapierRigidBody>(null);
 
   return (
     <div className="h-screen w-full bg-black">
       
+      <LoadingScreen 
+        started={start} 
+        onStarted={() => setStart(true)} 
+      />
+
       <Canvas 
         camera={{ position: [-8, 6.5, 8], fov: 45 }}
 
@@ -184,7 +193,7 @@ export default function Home() {
       </Canvas>
 
       {/* HTML Light Switch */}
-      <div className="absolute top-4 right-4 z-10">
+      <div className="absolute top-4 right-4 z-10 transition-opacity duration-1000 animate-in fade-in">
         <button
           onClick={() => setIsNight(!isNight)}
           className={`px-6 py-3 rounded-lg font-bold transition-colors ${
@@ -194,8 +203,6 @@ export default function Home() {
           {isNight ? "🌙 Night Mode" : "☀️ Day Mode"}
         </button>
       </div>
-
-      <Loader />
 
       <Analytics/>
       
