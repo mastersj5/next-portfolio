@@ -11,6 +11,36 @@ export function Acoustic_guitar(props) {
 
   const sound = useRef()
 
+  // 🛠️ THE MATERIAL FIXER 2.0 🛠️
+  useEffect(() => {
+    Object.values(materials).forEach((material) => {
+      
+      // 1. THE FIX: Set Base Color to White
+      // If this is Black (default in some exports), the object absorbs all light.
+      // White allows the texture (wood grain) to show through.
+      material.color.setHex(0xffffff)
+
+      // 2. Kill the Glow 
+      if (material.emissive) material.emissive.setHex(0x000000)
+      if (material.emissiveIntensity) material.emissiveIntensity = 0
+
+      // 3. Texture Recovery (Just in case)
+      // Sometimes the texture is hidden in the emissive slot.
+      // If we have an emissive map but no color map, move it over.
+      if (material.emissiveMap && !material.map) {
+          material.map = material.emissiveMap
+          material.emissiveMap = null
+      }
+
+      // 4. Physical Properties
+      material.roughness = 0.5 
+      material.metalness = 0.1
+      material.side = 2 // DoubleSide
+      
+      material.needsUpdate = true
+    })
+  }, [materials])
+
   const playSound = () => {
     // Check if sound exists
     if (sound.current) {
@@ -43,7 +73,7 @@ export function Acoustic_guitar(props) {
         loop={false}
       />
 
-
+        
       <mesh geometry={nodes.Circle031.geometry} material={materials['madreperla tastini']} position={[0, 0.009, -0.21]} rotation={[0.009, 0, 0]} />
       <mesh geometry={nodes.Circle030.geometry} material={materials['madreperla tastini']} position={[0, 0.009, -0.156]} rotation={[0.009, 0, 0]} />
       <mesh geometry={nodes.Circle029.geometry} material={materials['madreperla tastini']} position={[0, 0.008, -0.107]} rotation={[0.009, 0, 0]} />

@@ -67,7 +67,7 @@ export default function Home() {
                 For now, let's just lean it against the back wall.
             */}
             <RigidBody type="fixed" colliders="trimesh">
-              <Center top position={[-23, -8.5, -12.5]}>
+              <Center top position={[-22.7, -8.5, -12.5]}>
                 <Acoustic_guitar 
                     scale={10} 
                     //position={[-20, -5.5, -17]} // To the right, on the floor, near back wall
