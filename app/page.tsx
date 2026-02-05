@@ -129,8 +129,9 @@ export default function Home() {
                   />
               </Center>
 
-              <Html
-                position={[0, 1.25, 0]} // Float it 1.25 units above the group center
+              {/* <Html
+                occlude
+                position={[0, 2.3, -1]} // Float it 1.25 units above the group center
                 center // Centers the div on that point
                 distanceFactor={10} // Makes it get smaller as you zoom out
               >
@@ -146,7 +147,7 @@ export default function Home() {
                 >
                         My GitHub 💻
                 </div>
-              </Html>
+              </Html> */}
 
           </group>
 
