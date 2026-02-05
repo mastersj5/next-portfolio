@@ -120,12 +120,13 @@ export default function Home() {
               </Center>
             </RigidBody>
             
-            <group position={[0.1, -.3, -2]}>  
+            <group position={[1.5, -.5, -2]}>  
 
               <Center top>
                   <Laptop_alienpredator 
-                    scale={1.5} 
+                    scale={2} 
                     rotation={[0, Math.PI, 0]} 
+                    started={start}
                   />
               </Center>
 
