@@ -120,7 +120,7 @@ export default function Home() {
               </Center>
             </RigidBody>
             
-            <group position={[1.5, -.5, -2]}>  
+            <group position={[0, -.5, -2]}>  
 
               <Center top>
                   <Laptop_alienpredator 
