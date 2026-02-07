@@ -1,7 +1,8 @@
 import React from 'react';
 import { RigidBody } from '@react-three/rapier';
-import { useGLTF, MeshReflectorMaterial, useTexture } from '@react-three/drei'
+import { useGLTF, MeshReflectorMaterial, useTexture, Center } from '@react-three/drei'
 import { Office_Rug } from './Persian_nain_carpet'
+import { Ceiling_Lamp } from './Ceiling_Lamp'
 
 export function Room({ isNight }) {
 
@@ -56,11 +57,22 @@ export function Room({ isNight }) {
                 </mesh>
             </RigidBody>
             {/* The "Calm Light Source" from the roof */}
+            <RigidBody>
+                <Center 
+                    top 
+                    position={[27.8, 19.25, -3.5]}
+                    rotation={[0, 0, -Math.PI/2]}
+                >  
+                    <Ceiling_Lamp
+                        scale={14}
+                    />
+                </Center> 
+            </RigidBody>
             <pointLight 
-                position={[0, 14, 0]} 
-                intensity={isNight ? 0 : 800} 
+                position={[0, 13.25, 0]} 
+                intensity={isNight ? 0 : 600} 
                 color="#ffdcb4" 
-                decay={2}
+                decay={2.1}
                 castShadow 
             />
 
