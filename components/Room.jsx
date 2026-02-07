@@ -57,17 +57,12 @@ export function Room({ isNight }) {
                 </mesh>
             </RigidBody>
             {/* The "Calm Light Source" from the roof */}
-            <RigidBody>
-                <Center 
-                    top 
-                    position={[27.8, 19.25, -3.5]}
-                    rotation={[0, 0, -Math.PI/2]}
-                >  
-                    <Ceiling_Lamp
-                        scale={14}
-                    />
-                </Center> 
-            </RigidBody>
+            <Center position={[0, 18.75, 0]}>  
+                <Ceiling_Lamp
+                    scale={14}
+                />
+            </Center> 
+           
             <pointLight 
                 position={[0, 13.25, 0]} 
                 intensity={isNight ? 0 : 600} 
