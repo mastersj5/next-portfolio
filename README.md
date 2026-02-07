@@ -1,6 +1,6 @@
 # 3D Interactive Portfolio & Physics Lab 🚀
 
-A "mixed reality" portfolio website built with **Next.js**, **React Three Fiber**, and **Rapier Physics**. This project demonstrates the integration of 3D immersive web experiences, real-time physics simulations, and cinematic post-processing with standard HTML/CSS interfaces.
+A "mixed reality" portfolio website built with **Next.js**, **React Three Fiber**, and **Rapier Physics**. This project demonstrates the integration of 3D immersive web experiences, real-time physics simulations, spatial audio, and cinematic post-processing with standard HTML/CSS interfaces.
 
 **Live Demo:** [https://jm-folio.vercel.app](https://jm-folio.vercel.app)
 
@@ -16,15 +16,24 @@ A "mixed reality" portfolio website built with **Next.js**, **React Three Fiber*
 
 ## ✨ Features
 
-* **Interactive Physics:**
-    * **Gravity & Collisions:** Objects react to the environment (floors/walls) using the Rapier engine.
-    * **Impulse Interactions:** Clickable objects (Balls, Dice) that launch or spin using applied forces and torque.
-    * **Complex Colliders:** Implementation of `Trimesh` and `Hull` colliders for irregular shapes (like a d20).
-* **Dynamic Lighting Environment:**
-    * **Day/Night Cycle:** Global state management that switches lighting profiles (sunlight vs. bulb light) and material properties (emissive textures).
-    * **Custom Environments:** "Cornell Box" style room with dynamic shadows and material textures.
-* **Cinematic Effects:** High-end visual polish using **Bloom** (glow) and **Vignette**.
-* **Hybrid UI:** HTML overlays (`<Html>`) that track 3D position for accessible labels and controls.
+### 🎮 Interactive Physics
+* **Gravity & Collisions:** Objects react to the environment (floors/walls) using the Rapier engine.
+* **Impulse Interactions:** Clickable objects (Balls, Dice) launch or spin using applied forces and torque.
+* **Complex Colliders:** `Trimesh` and `Hull` colliders for irregular shapes (like a d20 die or leaning guitar).
+
+### 🔊 Immersive Audio
+* **Spatial Sound:** 3D Positional Audio attached to the acoustic guitar. The volume and panning adjust automatically based on the camera's distance and angle relative to the instrument.
+* **Audio Context Handling:** A custom "Enter Experience" overlay ensures browser audio policies are respected before loading the scene.
+
+### 💻 Virtual OS (Embedded HTML)
+* **Occluded Screens:** A functional web browser embedded inside the 3D laptop model using the `<Html transform occlude>` component.
+* **Interactive Content:** Displays a custom terminal-style internal page (`/screen`) that users can interact with inside the 3D world.
+* **Visual Integration:** Properly rotated and scaled to match the GLB model's bezel, with "z-fighting" resolved via occlusion.
+
+### 🎨 Visuals & Performance
+* **Dynamic Lighting:** Day/Night cycle switching (Sunlight vs. Bulb light) with emissive texture handling.
+* **Asset Optimization:** Draco compression pipeline for 3D models to reduce mobile load times.
+* **Custom Loading System:** Interpolated progress bar that smooths out asset loading jumps for a premium feel.
 
 ## 📦 Getting Started
 
