@@ -17,29 +17,22 @@ export function LoadingScreen({ started, onStarted }) {
     }
   }, [started]);
 
-  // The Smoothing Loop
-  // This useEffect runs continuously to push 'activeProgress' closer to 'progress'
+  // The Smoothing Loop (Fixed)
   useEffect(() => {
     let animationFrame;
-    
     const updateProgress = () => {
       setActiveProgress((prev) => {
-        // Calculate distance to real progress
         const diff = progress - prev;
-        
-        // If we are super close, just snap to finish
-        if (diff < 0.5 && progress === 100) return 100;
-        
-        // Otherwise, move 5% of the distance closer per frame (Ease-out effect)
-        return prev + diff * 0.05; 
+        if (Math.abs(diff) < 0.5) return progress; // Snap to finish
+        return prev + diff * 0.05; // Ease towards target
       });
-
-      if (activeProgress < 100) {
-        animationFrame = requestAnimationFrame(updateProgress);
-      }
+      
+      // Keep looping until we match
+      animationFrame = requestAnimationFrame(updateProgress);
     };
 
-    updateProgress();
+    // Start the loop
+    animationFrame = requestAnimationFrame(updateProgress);
 
     return () => cancelAnimationFrame(animationFrame);
   }, [progress, activeProgress]); // Re-run when target changes
