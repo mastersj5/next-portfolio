@@ -16,7 +16,7 @@ export function Laptop_alienpredator({ started, ...props }) {
   return (
     <group {...props} dispose={null}>
       {/* Only render the screen if the user has entered the lab */}
-      {started && <LaptopScreen />}
+      {started && <LaptopScreen name="interactable" />}
       <group position={[0.388, 0.301, 0.317]} scale={[0.046, 0.016, 0.053]}>
         <mesh geometry={nodes.Object_4.geometry} material={materials['Material.006']} />
         <mesh geometry={nodes.Object_5.geometry} material={materials['Material.031']} />

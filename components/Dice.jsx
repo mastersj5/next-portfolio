@@ -13,7 +13,7 @@ export function Dice() {
         colliders="hull" 
         restitution={0.5}
     >
-      <mesh 
+      <mesh name="interactable"
         castShadow
         onClick={() => {
             // Apply a random torque (spin) and impulse (jump) to simulate a roll
